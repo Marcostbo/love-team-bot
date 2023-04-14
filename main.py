@@ -1,6 +1,6 @@
 import tweepy
 import secrets
-from general import format_team_name_for_tweet
+from general import format_team_name_for_tweet, random_team
 
 
 def twitter_auth():
@@ -20,7 +20,10 @@ def twitter_auth():
         secret=secrets.ACCESS_TOKEN_SECRET
     )
     api = tweepy.API(auth)
-    selected_team = 'São Paulo'
+
+    selected_team = random_team(teams_file='teams.txt')
+    print(f'Tweeting about {selected_team}')
+
     media = api.media_upload(filename=f'logos/{selected_team}.png')
     media_id = media.media_id
 
