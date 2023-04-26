@@ -19,6 +19,7 @@ def twitter_auth():
         key=secrets.ACCESS_TOKEN,
         secret=secrets.ACCESS_TOKEN_SECRET
     )
+
     api = tweepy.API(auth)
 
     selected_team = random_team(teams_file='teams.txt')
