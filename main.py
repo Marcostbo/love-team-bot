@@ -1,6 +1,7 @@
 import tweepy
 import secrets
 from general import format_team_name_for_tweet, random_team
+from constants import NUMBER_OF_POSTS
 
 
 def twitter_auth():
@@ -25,17 +26,29 @@ def twitter_auth():
 
 def tweet(twitter_client: tweepy.Client, twitter_authorization: tweepy.OAuthHandler):
     api = tweepy.API(twitter_authorization)
+    tweeted_teams = []
+    posts = 0
 
-    selected_team = random_team(teams_file='teams.txt')
-    print(f'Tweeting about {selected_team}')
+    while posts < NUMBER_OF_POSTS:
+        selected_team = random_team(teams_file='teams.txt')
+        if selected_team not in tweeted_teams:
+            print(f'Tweeting about {selected_team}')
 
-    media = api.media_upload(filename=f'logos/{selected_team}.png')
-    media_id = media.media_id
+            # Upload team logo
+            media = api.media_upload(filename=f'logos/{selected_team}.png')
+            media_id = media.media_id
 
-    formated_name = format_team_name_for_tweet(
-        name=selected_team
-    )
-    twitter_client.create_tweet(text=f'Love for #{formated_name}', media_ids=[media_id, ])
+            # Format team name for hashtag
+            formated_name = format_team_name_for_tweet(
+                name=selected_team
+            )
+
+            # Create tweet
+            twitter_client.create_tweet(text=f'Love for #{formated_name}', media_ids=[media_id, ])
+
+            # Handle tweets control to not tweet a team twice
+            tweeted_teams.append(selected_team)
+            posts += 1
 
 
 if __name__ == "__main__":
