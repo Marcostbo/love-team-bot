@@ -20,7 +20,11 @@ def twitter_auth():
         secret=secrets.ACCESS_TOKEN_SECRET
     )
 
-    api = tweepy.API(auth)
+    return client, auth
+
+
+def tweet(twitter_client: tweepy.Client, twitter_authorization: tweepy.OAuthHandler):
+    api = tweepy.API(twitter_authorization)
 
     selected_team = random_team(teams_file='teams.txt')
     print(f'Tweeting about {selected_team}')
@@ -31,7 +35,12 @@ def twitter_auth():
     formated_name = format_team_name_for_tweet(
         name=selected_team
     )
-    client.create_tweet(text=f'Love for #{formated_name}', media_ids=[media_id, ])
+    twitter_client.create_tweet(text=f'Love for #{formated_name}', media_ids=[media_id, ])
 
 
-twitter_auth()
+if __name__ == "__main__":
+    my_client, my_auth = twitter_auth()
+    tweet(
+        twitter_client=my_client,
+        twitter_authorization=my_auth
+    )
