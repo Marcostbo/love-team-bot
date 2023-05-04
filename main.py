@@ -34,8 +34,4 @@ def twitter_auth():
     client.create_tweet(text=f'Love for #{formated_name}', media_ids=[media_id, ])
 
 
-def tweet(api: tweepy.API, message: str, image_path: str):
-    api.update_status_with_media(message, image_path)
-
-
 twitter_auth()
