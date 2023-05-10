@@ -52,6 +52,7 @@ def tweet(twitter_client: tweepy.Client, twitter_authorization: tweepy.OAuthHand
                 posts += 1
             except FileNotFoundError:
                 # In case of an error, the number of posts is not increased
+                print(f'Unable to tweet about {selected_team}')
                 pass
 
 
