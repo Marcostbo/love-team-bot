@@ -44,11 +44,15 @@ def tweet(twitter_client: tweepy.Client, twitter_authorization: tweepy.OAuthHand
             )
 
             # Create tweet
-            twitter_client.create_tweet(text=f'Love for #{formated_name}', media_ids=[media_id, ])
+            try:
+                twitter_client.create_tweet(text=f'Love for #{formated_name}', media_ids=[media_id, ])
 
-            # Handle tweets control to not tweet a team twice
-            tweeted_teams.append(selected_team)
-            posts += 1
+                # Handle tweets control to not tweet a team twice
+                tweeted_teams.append(selected_team)
+                posts += 1
+            except FileNotFoundError:
+                # In case of an error, the number of posts is not increased
+                pass
 
 
 if __name__ == "__main__":
