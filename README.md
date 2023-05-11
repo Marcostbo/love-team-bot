@@ -1,6 +1,8 @@
-# love-team-bot
+<p align="center">
+  <img src="https://github.com/Marcostbo/love-team-bot/assets/42622686/db2fb8fe-47d4-47f5-affc-235a847b937c" />
+</p>
 
-![image](https://github.com/Marcostbo/love-team-bot/assets/42622686/5dd9f1ac-0def-4b7b-b61e-ad4d460e1a42)
+# love-team-bot
 
 A cute bot that loves all football teams
 
